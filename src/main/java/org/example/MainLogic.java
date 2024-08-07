@@ -3,7 +3,6 @@ package org.example;
 import org.example.Entities.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -25,12 +24,12 @@ public class MainLogic {
         users.sort(Comparator.comparing(User::getAge).reversed());
     }
 
-    public void filterBYDateOfBirth(ArrayList<User> users, LocalDateTime firstDate, LocalDateTime secondDate){
+    public void filterBYDateOfBirth(ArrayList<User> users, LocalDate firstDate, LocalDate secondDate){
 
         for (int i = 0; i < users.size() ; i++) {
-            if(users.get(i).getDate_of_birth().isAfter(firstDate.toLocalDate())
-                    && users.get(i).getDate_of_birth().isBefore(secondDate.toLocalDate())){
-                System.out.println(users.get(i).getDate_of_birth());
+            if(users.get(i).getDate_of_birth().isAfter(firstDate)
+                    && users.get(i).getDate_of_birth().isBefore(secondDate)){
+                System.out.println(users.get(i).toString());
             }
         }
     }

@@ -52,7 +52,7 @@ public class Main {
                     break;
                 }
                 case 3: {
-
+                    menu.inputBirthFilter();
                     sortAndFilter.filterBYDateOfBirth(users, menu.getDateBegin(), menu.getDateEnd());
                     break;
                 }
@@ -72,9 +72,10 @@ public class Main {
                 }
                 case 6: {
                     menu.outputSort();
-                    if (menu.inputAnswer() == 1) {
+                    answer = menu.inputAnswer();
+                    if (answer == 1) {
                         sortAndFilter.sortByAgeLowToUp(users);
-                    } else if (menu.inputAnswer() == 2) {
+                    } else if (answer == 2) {
                         sortAndFilter.sortByAgeUpToLow(users);
                     }
                     break;

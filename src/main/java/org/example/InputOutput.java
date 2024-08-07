@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Entities.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -10,19 +11,19 @@ import java.util.Scanner;
 public class InputOutput {
 
     private int chooseAnswer;
-    private LocalDateTime dateBegin;
-    private LocalDateTime dateEnd;
+    private LocalDate dateBegin;
+    private LocalDate dateEnd;
     private String path;
 
     public String getPath() {
         return path;
     }
 
-    public LocalDateTime getDateBegin() {
+    public LocalDate getDateBegin() {
         return dateBegin;
     }
 
-    public LocalDateTime getDateEnd() {
+    public LocalDate getDateEnd() {
         return dateEnd;
     }
 
@@ -61,14 +62,14 @@ public class InputOutput {
 
     public void inputBirthFilter(){
 
-        System.out.println("Введіть період для фільтрації\n");
-        System.out.println("З");
+        System.out.println("Введіть період для фільтрації");
+        System.out.println("З(dd/MM/yyyy)");
         String dateStr= input.next();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd'T'HH:mm");
-        dateBegin = LocalDateTime.parse(dateStr, formatter);
-        System.out.println("По");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        dateBegin = LocalDate.parse(dateStr, formatter);
+        System.out.println("По(dd/MM/yyyy)");
         dateStr = input.next();
-        dateEnd = LocalDateTime.parse(dateStr, formatter);
+        dateEnd = LocalDate.parse(dateStr, formatter);
     }
     public void showUsers(ArrayList<User> users){
         for (int i = 0; i < users.size(); i++) {

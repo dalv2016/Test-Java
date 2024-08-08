@@ -21,7 +21,7 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         ImageController imageSettings = new ImageController();
         InputOutput menu = new InputOutput();
-        MainLogic sortAndFilter = new MainLogic();
+        SortsAndFilters sortAndFilter = new SortsAndFilters();
         ArrayList<User> users;
         int countOfUsers;
         int answer;

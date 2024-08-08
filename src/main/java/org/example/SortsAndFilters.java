@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class MainLogic {
+public class SortsAndFilters {
 
     public void sortByGender(ArrayList<User> users){
         users.sort(Comparator.comparing(User::getGender));

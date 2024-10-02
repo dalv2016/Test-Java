@@ -1,34 +1,25 @@
 package org.example;
 
+import lombok.Data;
 import org.example.Entities.User;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@Data
 public class InputOutput {
 
     private int chooseAnswer;
     private LocalDate dateBegin;
     private LocalDate dateEnd;
-    private String path;
+    private Path path;
+    private boolean restart;
 
-    public String getPath() {
-        return path;
-    }
-
-    public LocalDate getDateBegin() {
-        return dateBegin;
-    }
-
-    public LocalDate getDateEnd() {
-        return dateEnd;
-    }
-
-
-    private final Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
 
     public  void showMenu(){
         System.out.println("Меню");
@@ -41,13 +32,17 @@ public class InputOutput {
         System.out.println("0.Вихід");
     }
     public int inputAnswer(){
-        try {
-            chooseAnswer = input.nextInt();
-            return chooseAnswer;
-        }
-       catch (Exception e){
-            return 0;
-       }
+        do {
+            try {
+                input = new Scanner(System.in);
+                chooseAnswer = input.nextInt();
+                restart=false;
+            } catch (Exception e) {
+                restart = true;
+                System.out.println("Невірно вказані дані, ведіть дані заново");
+            }
+        }while (restart);
+        return chooseAnswer;
     }
     public void outputUsersCountText(){
         System.out.println("Введіть кількість користувачів");
@@ -61,15 +56,22 @@ public class InputOutput {
     }
 
     public void inputBirthFilter(){
-
-        System.out.println("Введіть період для фільтрації");
-        System.out.println("З(dd/MM/yyyy)");
-        String dateStr= input.next();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        dateBegin = LocalDate.parse(dateStr, formatter);
-        System.out.println("По(dd/MM/yyyy)");
-        dateStr = input.next();
-        dateEnd = LocalDate.parse(dateStr, formatter);
+        do {
+            System.out.println("Введіть період для фільтрації");
+            System.out.println("З(dd/MM/yyyy)");
+            try {
+                String dateStr = input.next();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                dateBegin = LocalDate.parse(dateStr, formatter);
+                System.out.println("По(dd/MM/yyyy)");
+                dateStr = input.next();
+                dateEnd = LocalDate.parse(dateStr, formatter);
+                restart = false;
+            } catch (Exception e) {
+                restart = true;
+                System.out.println("Перевірте правельність заповнення даних");
+            }
+        } while (restart);
     }
     public void showUsers(ArrayList<User> users){
         for (int i = 0; i < users.size(); i++) {
@@ -77,11 +79,16 @@ public class InputOutput {
         }
     }
 
-    public String setPathToAvatarPhoto()
+    public Path setPathToAvatarPhoto()
     {
-        System.out.println("Введіть шлях до директорії в якій будуть збереженні фото:  ");
-        path =input.next();
-        return path;
+        File file;
+            do {
+                System.out.println("Введіть шлях до директорії в якій будуть збереженні фото:  ");
+                path = Path.of(input.next());
+                 file = new File(path.toString());
+
+            } while (!file.isDirectory());
+             return path;
     }
 
 }

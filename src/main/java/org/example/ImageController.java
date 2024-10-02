@@ -1,43 +1,42 @@
 package org.example;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ImageController {
 
     private List<String> pathes = new ArrayList<>();
-    private String directoryName;
+    private String directoryNameToSave;
 
     public String getDirectiryName() {
-        return directoryName;
+        return directoryNameToSave;
     }
 
     public void setDirectiryName(String directiryName) {
-        this.directoryName = directiryName;
+        if (!directiryName.endsWith("/")) {
+            directiryName = directiryName+"/";
+        }
+        this.directoryNameToSave = directiryName;
     }
 
 
-    public String sortAndFilter (String url, String imageName) throws IOException {
-        Path savePath = Path.of(directoryName + imageName+".jpg");
-
-        try {
-            BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-            FileOutputStream fileOutputStream = new FileOutputStream(imageName);
-                byte dataBuffer[] = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                    fileOutputStream.write(dataBuffer, 0, bytesRead);
-                }
-            Files.copy(in, savePath, StandardCopyOption.REPLACE_EXISTING);
-
+    public String saveImg (String url, String imageName) {
+        String savePath = directoryNameToSave + imageName+".jpg";
+        try(InputStream in = URI.create(url).toURL().openStream()) {
+            Files.copy(in, Path.of(savePath),StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            }
+        }
         return savePath.toString();
     }
     public void addPath(String path){
@@ -57,7 +56,7 @@ public class ImageController {
     }
 
     public void deleteAllFilesFolder(String path) {
-        for (File myFile : new File(path).listFiles())
+        for (File myFile : Objects.requireNonNull(new File(path).listFiles()))
             if (myFile.isFile()) myFile.delete();
     }
 }

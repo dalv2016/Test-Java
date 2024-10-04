@@ -20,8 +20,8 @@ import java.util.List;
 public class HTTPClient {
     private String baseUrl;
     private HttpResponse response = null;
-    ObjectMapper objectMapper = new ObjectMapper();
-    ArrayList<User> users = new ArrayList<>();
+    private ObjectMapper objectMapper = new ObjectMapper();
+    private ArrayList<User> users = new ArrayList<>();
     @Getter
     boolean responseOk = true;
 

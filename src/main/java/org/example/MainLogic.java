@@ -47,7 +47,9 @@ public class MainLogic {
                     break;
                 }
                 case 3: {
-                    menu.inputBirthFilter();
+                    menu.outputFilter();
+                    menu.inputDate("З");
+                    menu.inputDate("По");
                     sortAndFilter.filterBYDateOfBirth(users, menu.getDateBegin(), menu.getDateEnd());
                     break;
                 }

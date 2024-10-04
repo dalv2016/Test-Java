@@ -32,6 +32,9 @@ public class SortsAndFilters {
                 System.out.println(users.get(i).toString());
             }
         }
+        if(users.isEmpty()){
+            System.out.println("Користувачів не знайдено");
+        }
     }
 
 

@@ -54,18 +54,25 @@ public class InputOutput {
         System.out.println("1.Сортувати по зростанню");
         System.out.println("2.Сортувати по спаданню");
     }
-
-    public void inputBirthFilter(){
+    public void outputFilter()
+    {
+        System.out.println("Введіть період для фільтрації");
+    }
+    public void inputDate(String text){
         do {
-            System.out.println("Введіть період для фільтрації");
-            System.out.println("З(dd/MM/yyyy)");
+
             try {
+                System.out.println(text +" (dd/MM/yyyy)");
                 String dateStr = input.next();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                dateBegin = LocalDate.parse(dateStr, formatter);
-                System.out.println("По(dd/MM/yyyy)");
-                dateStr = input.next();
-                dateEnd = LocalDate.parse(dateStr, formatter);
+                if(text.equals("З"))
+                {
+                    dateBegin = LocalDate.parse(dateStr, formatter);
+                }
+                else if (text.equals("По"))
+                {
+                    dateEnd = LocalDate.parse(dateStr, formatter);
+                }
                 restart = false;
             } catch (Exception e) {
                 restart = true;
